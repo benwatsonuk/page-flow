@@ -1,4 +1,3 @@
-import * as pageFlow from './functions/page-flow'
-import * as common from './functions/common'
+const pageFlow = require('./functions/page-flow')
 
-module.exports.pageFlow = pageFlow(pages)
+module.exports.pageFlow = pageFlow()

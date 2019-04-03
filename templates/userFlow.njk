@@ -1,0 +1,24 @@
+<ol class="user-flow--stages">
+    {% for stage in userJourney.flow %}
+        <li class="user-flow-item--stage page-flow-item--stage--{{ stage['stage']['id'] }}">
+            <span class="page-flow-stage-descriptor govuk-header">{{ stage['stage']['name'] }}</span>
+            <ol class="user-flow--pages">
+                {% for page in stage.pages %}
+                    <li class="page-flow-item--page">
+                        {% if page.pageInfo.subDir.length %}
+                            <a href="{{ userJourney.userType.id + '/' + stage['stage'].location + '/' + page.pageInfo.subDir + '/' + page.pageInfo.location }}"
+                               target="_blank"
+                               class="page-flow-item-screen-icon page-flow-item-screen-icon--{{ page.pageInfo.type }}"></a>
+                        {% else %}
+                            <a href="{{ userJourney.userType.id + '/' + stage['stage'].location + '/' + page.pageInfo.location }}"
+                               target="_blank"
+                               class="page-flow-item-screen-icon page-flow-item-screen-icon--{{ page.pageInfo.type }}"></a>
+                        {% endif %}
+                        <p class="govuk-!-font-size-14">{{ page.pageInfo.title }}
+                        </p>
+                    </li>
+                {% endfor %}
+            </ol>
+        </li>
+    {% endfor %}
+</ol>
