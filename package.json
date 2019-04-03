@@ -1,10 +1,10 @@
 {
   "name": "@benwatsonuk/page-flow",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Page flow takes structured independent pages and chains them into versioned user flows.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "benwatsonuk",

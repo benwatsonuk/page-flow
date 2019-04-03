@@ -1,5 +1,3 @@
-const pageFlow = require('./functions/page-flow')
-const pageFlow = require('./functions/page-flow')
+const renderPageIndex = require('./functions/renderPageIndex')
 
-module.exports.getPageFlow = pageFlow()
-module.exports.renderPageFlow = renderPageFlow()
+module.exports.renderPageIndex = renderPageIndex
