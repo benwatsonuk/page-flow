@@ -1,12 +1,13 @@
-$icons: '../images/page-flow/page-types';
-$stage-color--stay-writ: #006c56;
-$stage-color--check-writ: #00beb7;
-$stage-color--security-layer: pink;
-$stage-color--defendant-dashboard: #f47738;
-$stage-color--notifications: #ccc;
-$stage-color--enforcement-selection: #005ea5;
-$stage-color--writs: #004432;
-$stage-color--documents: orange;
+$image_assets: '../assets/img/';
+$icons: $image_assets +'/page-types';
+$stage-color--1: #006c56;
+$stage-color--2: #00beb7;
+$stage-color--3: pink;
+$stage-color--4: #f47738;
+$stage-color--5: #ccc;
+$stage-color--6: #005ea5;
+$stage-color--7: #004432;
+$stage-color--8: orange;
 
 .screenPreviewContainer {
   height: 400px;
@@ -53,31 +54,31 @@ $stage-color--documents: orange;
     //padding: 5px;
   }
   &--security-layer {
-    border-color: $stage-color--security-layer;
+    border-color: $stage-color--1;
   }
   &--stay-writ {
-    border-color: $stage-color--stay-writ;
+    border-color: $stage-color--2;
   }
   &--defendant-dashboard {
-    border-color: $stage-color--defendant-dashboard;
+    border-color: $stage-color--3;
   }
   &--claimant-dashboard {
-    border-color: $stage-color--defendant-dashboard;
+    border-color: $stage-color--4;
   }
   &--check-writ {
-    border-color: $stage-color--check-writ;
+    border-color: $stage-color--5;
   }
   &--enforcement-selection {
-    border-color: $stage-color--enforcement-selection;
+    border-color: $stage-color--6;
   }
   &--writs {
-    border-color: $stage-color--writs;
+    border-color: $stage-color--7;
   }
   &--documents {
-    border-color: $stage-color--documents;
+    border-color: $stage-color--8;
   }
   &--notifications-defendant, &--notifications-claimant {
-    border-color: $stage-color--notifications;
+    border-color: $stage-color--9;
   }
   &:last-of-type {
     .page-flow-item--page{
@@ -171,7 +172,7 @@ $stage-color--documents: orange;
     &:before {
       content: "";
       position: absolute;
-      background: url('../images/page-flow/arrow.svg') no-repeat;
+      background: url($image_assets + '/arrow.svg') no-repeat;
       background-size: contain;
       width: 78px;
       left: 92px;
