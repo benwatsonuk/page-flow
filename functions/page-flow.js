@@ -1,3 +1,5 @@
+const common = require('common')
+
 module.exports = function(pages) {
-    return 'Hey'
+    return 'Test'
 }

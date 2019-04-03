@@ -1,10 +1,10 @@
-let pageFlow = require('./pages.json')
-const userNeeds = require('./user-needs.json')
+// let pageFlow = require('./pages.json')
+// const userNeeds = require('./user-needs.json')
 
 const common = {}
 
 /**
- * Sort array
+ * Utilities
  */
 function compareStrings (a, b) {
     // Assuming you want case-insensitive comparison
@@ -18,7 +18,34 @@ common.sortArray = function (a, b) {
     return compareStrings(a, b)
 }
 
+common.findKey = function (key, theParameter, theArray) {
+    for (var theKey in theArray) {
+        if (theArray[theKey][theParameter] === key) return theArray[theKey]
+    }
+    return false
+}
 
+common.findIndex = function (key, theParameter, theArray) {
+    for (var theKey in theArray) {
+        if (theArray[theKey][theParameter] === key) return theKey
+    }
+    return false
+}
+
+common.findIndexUsing2Keys = function (key, theParameter, key2, theParameter2, theArray) {
+    // for (let i = 0; i < theArray.length; i++) {
+    for (let i in theArray) {
+        let el = theArray[i]
+        if (el[theParameter] === key && el[theParameter2] === key2) {
+            return i
+        }
+    }
+    return -1
+}
+
+/**
+ * Page Flow
+ */
 
 common.getPageBefore = function (pageFlow, index, theArray, thisStageIndex, version) {
     index = parseInt(index)

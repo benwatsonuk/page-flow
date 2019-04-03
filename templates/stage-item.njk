@@ -5,8 +5,6 @@
 
         <p>{{ params.description }}</p>
 
-        {{ params.csvData[0] }}
-
         {%- if params.stage.versions[0] %}
             <ol class="page-flow--pages">
                 {% for page in params.stage.versions[0].pages %}
