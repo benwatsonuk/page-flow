@@ -53,6 +53,7 @@ $stage-color--8: orange;
     display: block;
     //padding: 5px;
   }
+  //@todo - make these generic
   &--security-layer {
     border-color: $stage-color--1;
   }
@@ -76,9 +77,6 @@ $stage-color--8: orange;
   }
   &--documents {
     border-color: $stage-color--8;
-  }
-  &--notifications-defendant, &--notifications-claimant {
-    border-color: $stage-color--9;
   }
   &:last-of-type {
     .page-flow-item--page{
