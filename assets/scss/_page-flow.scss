@@ -104,6 +104,11 @@ $stage-color--8: orange;
       height: 100px;
       display: block;
       background-repeat: no-repeat;
+      &--error {
+        background-image: url($icons + '/error.svg');
+        -webkit-background-size: contain;
+        background-size: contain;
+      }
       &--email {
         background-image: url($icons + '/email.svg');
         -webkit-background-size: contain;
