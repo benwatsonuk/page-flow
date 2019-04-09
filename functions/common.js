@@ -139,7 +139,7 @@ common.getPageHistory = function (thisPage, thisStage) {
 common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow) {
     let userJourneys = [] // main array
     for (let theJourney in theUserFlow['journeys']) {
-        let theUserNeeds = common.getUserNeeds(theUserFlow['journeys'][theJourney]['userType'])
+        // let theUserNeeds = common.getUserNeeds(theUserFlow['journeys'][theJourney]['userType'])
         let stagesInJourney = []
         let stageInJourney = {}
         let pagesInStage = []
@@ -180,7 +180,7 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow) {
                 'changeLog': theUserFlow['journeys'][theJourney]['changeLog'],
                 'description': theUserFlow['journeys'][theJourney]['description']
             },
-            'needs': theUserNeeds,
+            // 'needs': theUserNeeds,
             'flow': stagesInJourney
         })
     }

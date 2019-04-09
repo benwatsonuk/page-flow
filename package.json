@@ -1,6 +1,6 @@
 {
   "name": "@benwatsonuk/page-flow",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "Page flow takes structured independent pages and chains them into versioned user flows.",
   "main": "index.js",
   "scripts": {
