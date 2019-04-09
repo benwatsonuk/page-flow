@@ -6,7 +6,7 @@ const common = {}
 /**
  * Utilities
  */
-function compareStrings (a, b) {
+function compareStrings(a, b) {
     // Assuming you want case-insensitive comparison
     a = a.friendlyName.toLowerCase()
     b = b.friendlyName.toLowerCase()
@@ -80,12 +80,12 @@ common.getPageAfter = function (pageFlow, index, theArray, thisStageIndex, versi
     }
 }
 
-common.getPageBeforeUserFlow = function (theUserFlow, userIndex, currentIndex) {
+common.getPageBeforeUserFlow = function (theUserFlow, userIndex, currentIndex, pageFlow) {
     currentIndex = parseInt(currentIndex)
     let theArray = theUserFlow['journeys'][userIndex]['flow']
     if (theArray[(currentIndex - 1)]) {
         let stageVersion = theArray[(currentIndex - 1)]['version']
-        let thePageInfo = common.getPageInfoWithStageId(theArray[(currentIndex - 1)]['pageId'], theArray[(currentIndex - 1)]['stage'], stageVersion)
+        let thePageInfo = common.getPageInfoWithStageId(theArray[(currentIndex - 1)]['pageId'], theArray[(currentIndex - 1)]['stage'], stageVersion, pageFlow)
         let theLink = thePageInfo.stageInfo['location'] + '/' + thePageInfo.location
         if (thePageInfo['subDir']) {
             theLink = thePageInfo.stageInfo['location'] + '/' + thePageInfo['subDir'] + '/' + thePageInfo.location
@@ -99,12 +99,12 @@ common.getPageBeforeUserFlow = function (theUserFlow, userIndex, currentIndex) {
     }
 }
 
-common.getPageAfterUserFlow = function (theUserFlow, userIndex, currentIndex) {
+common.getPageAfterUserFlow = function (theUserFlow, userIndex, currentIndex, pageFlow) {
     currentIndex = parseInt(currentIndex)
     let theArray = theUserFlow['journeys'][userIndex]['flow']
     if (theArray[(currentIndex + 1)]) {
         let stageVersion = theArray[(currentIndex + 1)]['version']
-        let thePageInfo = common.getPageInfoWithStageId(theArray[(currentIndex + 1)]['pageId'], theArray[(currentIndex + 1)]['stage'], stageVersion)
+        let thePageInfo = common.getPageInfoWithStageId(theArray[(currentIndex + 1)]['pageId'], theArray[(currentIndex + 1)]['stage'], stageVersion, pageFlow)
         let theLink = thePageInfo.stageInfo['location'] + '/' + thePageInfo.location
         if (thePageInfo['subDir']) {
             theLink = thePageInfo.stageInfo['location'] + '/' + thePageInfo['subDir'] + '/' + thePageInfo.location
@@ -133,7 +133,6 @@ common.getPageHistory = function (thisPage, thisStage) {
     }
     return versions
 }
-
 
 
 common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow) {
@@ -199,12 +198,12 @@ common.getPageInfo = function (thePage, theStagePages) {
     return thisPage
 }
 
-common.getPageInfoWithStageId = function (thePageId, theStageId, stageVersion) {
+common.getPageInfoWithStageId = function (thePageId, theStageId, stageVersion, pageFlow) {
     if (stageVersion === undefined) {
         stageVersion = 0
     }
     let thisStageIndex = common.findIndex(theStageId, 'id', pageFlow['stages'])
-    let stageVersionIndex = common.findIndex(stageVersion, 'version', pageFlow['stages'][thisStageIndex]['versions'])
+    let stageVersionIndex = common.findIndex(stageVersion, 'version', pageFlow.stages[thisStageIndex]['versions'])
     let thisStage = pageFlow['stages'][thisStageIndex]['versions'][stageVersionIndex]
     let thisStageInfo = {
         'location': thisStage['location'],
@@ -247,7 +246,7 @@ common.getUserNeedsForPage = function (theNeeds, allNeeds) {
     return needs
 }
 
-common.getNavigationForUserFlow = function (userFlow, flowType, id, thisPage, thisStage, thisPageIndex, theStagePages, thisStageIndex, version) {
+common.getNavigationForUserFlow = function (userFlow, flowType, id, thisPage, thisStage, thisPageIndex, theStagePages, thisStageIndex, version, pageFlow) {
     let navigation
     if (flowType === 'page-flow') {
         navigation = {
@@ -255,11 +254,11 @@ common.getNavigationForUserFlow = function (userFlow, flowType, id, thisPage, th
             'next': common.getPageAfter(pageFlow, thisPageIndex, theStagePages, thisStageIndex, version)
         }
     } else {
-        let next = common.getPageAfterUserFlow(userFlow, common.findIndex(id, 'id', userFlow.journeys), common.getIndexInUserFlow(id, thisPage['id'], thisStage['id'], userFlow))
+        let next = common.getPageAfterUserFlow(userFlow, common.findIndex(id, 'id', userFlow.journeys), common.getIndexInUserFlow(id, thisPage['id'], thisStage['id'], userFlow), pageFlow)
         if (next !== false) {
             next['link'] = '/' + version + '/user-flow/' + id + '/' + next.link
         }
-        let prev = common.getPageBeforeUserFlow(userFlow, common.findIndex(id, 'id', userFlow.journeys), common.getIndexInUserFlow(id, thisPage['id'], thisStage['id'], userFlow))
+        let prev = common.getPageBeforeUserFlow(userFlow, common.findIndex(id, 'id', userFlow.journeys), common.getIndexInUserFlow(id, thisPage['id'], thisStage['id'], userFlow), pageFlow)
         if (prev['link'] !== false) {
             prev['link'] = '/' + version + '/user-flow/' + id + '/' + prev.link
         }
@@ -269,6 +268,82 @@ common.getNavigationForUserFlow = function (userFlow, flowType, id, thisPage, th
         }
     }
     return navigation
+}
+
+common.handleQueryString = function (query) {
+    let theQueryString = '';
+    if (Object.keys(query).length) {
+        theQueryString = '?';
+        let i = 0
+        for (let theKey in query) {
+            if (i > 0) {
+                theQueryString += '&'
+            }
+            theQueryString += theKey;
+            theQueryString += '=' + query[theKey];
+            i++
+        }
+    }
+    return theQueryString
+}
+
+common.getPageInfoForUserFlow = function (pageFlow, userFlow, page, stage, version, journeyId, query = false, subStage = false) {
+    const theQueryString = common.handleQueryString(query);
+    const flowType = 'user-flow'
+    let thePageName = page + theQueryString;
+    let theStageKey = null
+    if (subStage !== false) {
+        theStageKey = stage + '/' + subStage
+    } else {
+        theStageKey = stage
+    }
+    let thisStageIndex = common.findIndex(theStageKey, 'location', pageFlow.stages)
+    if (thisStageIndex === false) {
+        let theStageKey = stage + '/' + subStage
+        thisStageIndex = common.findIndex(theStageKey, 'location', pageFlow.stages)
+    }
+    let thisStage = pageFlow.stages[thisStageIndex]
+    let theStageId = thisStage.id
+    let journeyIndex = common.findIndex(journeyId, 'id', userFlow['journeys'])
+    let versionToUse = userFlow['journeys'][journeyIndex]['flow'][common.findIndexUsing2Keys(thePageName, 'location', theStageId, 'stage', userFlow['journeys'][journeyIndex]['flow'])]['version']
+    let theStageVersion = common.findIndex(versionToUse, 'version', thisStage.versions)
+    let theStagePages = thisStage.versions[theStageVersion]['pages']
+    let thisPageIndex = common.findIndex(thePageName, 'location', theStagePages)
+    let thisPage = theStagePages[thisPageIndex]
+
+    let navigation = common.getNavigationForUserFlow(userFlow, flowType, journeyId, thisPage, thisStage, thisPageIndex, theStagePages, thisStageIndex, version, pageFlow)
+    let theLocation = version + '/' + thisStage.location + '/' + thisPage.location
+    if (subStage !== false) {
+        let theStageKey = stage + '/' + subStage
+        thisStageIndex = common.findIndex(theStageKey, 'location', pageFlow.stages)
+        if (thisStageIndex === false) {
+            theLocation = version + '/' + thisStage.location + '/' + thisPage['subDir'] + '/' + thisPage.location
+        }
+    }
+
+    // let theUserNeeds
+    // let arrayOfNeeds = thisPage['userNeeds']
+    // if (arrayOfNeeds !== undefined) {
+    //     theUserNeeds = common.getUserNeedsForPage(arrayOfNeeds, userNeeds)
+    // }
+
+    let hasHistory = common.getPageHistory(thisPage, thisStage)
+
+    const dataForPageInfo = {
+        journeyId: journeyId,
+        pageFlow: pageFlow,
+        location: theLocation,
+        thisPage: thisPage,
+        thisStage: thisStage,
+        // theStageUR: theStageUR,
+        // userNeeds: theUserNeeds,
+        // sprint: sprint,
+        navigation: navigation,
+        hasHistory: hasHistory,
+        version: version
+    }
+
+    return dataForPageInfo
 }
 
 module.exports = common
