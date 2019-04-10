@@ -1,82 +1,14 @@
 <div class="govuk-grid-row" id="page-flow">
     <div class="govuk-grid-column-two-thirds">
-        <div class="govuk-breadcrumbs">
-            <ol class="govuk-breadcrumbs__list">
-                <li class="govuk-breadcrumbs__list-item">
-                    <a class="govuk-breadcrumbs__link" href="/{{ thePageInfo.version }}/user-flow/#{{ thePageInfo.journeyId }}">Sprint {{ thePageInfo.sprint }}</a>
-                </li>
-                <li class="govuk-breadcrumbs__list-item">
-                    <a class="govuk-breadcrumbs__link">Stage: {{ thePageInfo.thisStage.name }}</a>
-                </li>
-                {#<li class="govuk-breadcrumbs__list-item" aria-current="page">{{ thisPage.title }}</li>#}
-            </ol>
-        </div>
-        <h2 class="govuk-heading-m">
-            {{ thePageInfo.thisPage.title }}
-        </h2>
+        {# breadcrumbs #}
 
-        <p>{{ thePageInfo.thisPage.description }}</p>
+        {# pageDescription #}
 
-        <div class="screenPreviewContainer govuk-!-margin-bottom-5">
-            <iframe src="/{{ thePageInfo.location }}" class="screenPreview" frameborder="0"></iframe>
-        </div>
+        {# iframe #}
 
-        {% if thePageInfo.userNeeds !== undefined %}
-            {% from "details/macro.njk" import govukDetails %}
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                            User needs
-                        </span>
-                </summary>
-                <div class="govuk-details__text">
-                    {% for userNeed in thePageInfo.userNeeds %}
-                        <p><strong>{{ userNeed.need }}</strong> {{ userNeed.reason }} - {{ userNeed.id }}</p>
-                    {% endfor %}
-                </div>
-            </details>
-        {% endif %}
+        {# User needs #}
 
-        <h2 class="govuk-heading-s">User research notes</h2>
-
-        {% if theStageUR.feedback %}
-            {% from "details/macro.njk" import govukDetails %}
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                            Page feedback
-                        </span>
-                </summary>
-                <div class="govuk-details__text">
-                    {% for feedbackType, feedback in thePageInfo.theStageUR.feedback %}
-                        {% if feedbackType === 'video' and feedback !== '' %}
-                            <a href="{{ feedback }}" target="_blank">Video</a>
-                        {% else %}
-                            <p class="page-flow-feedback--{{ feedbackType }}">{{ feedback }}</p>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </details>
-
-        {% endif %}
-
-        {% if thePageInfo.theStageUR.participant.length %}
-            {% from "details/macro.njk" import govukDetails %}
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                            Participant comments
-                        </span>
-                </summary>
-                <div class="govuk-details__text">
-                    {% for feedback in thePageInfo.theStageUR.participant %}
-                        {% if feedback is not loop.first %}
-                            <p>Participant {{ loop.index0 }} - {{ feedback }}</p>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </details>
-        {% endif %}
+        {# User research #}
 
     </div>
     <div class="govuk-grid-column-one-third">
@@ -84,38 +16,11 @@
 
         {{ pageNav(navigation) }}
 
-        <a href="/{{ thePageInfo.location }}" class="hmcts-button--secondary govuk-button govuk-!-display-block"
-           target="_blank">View full page</a>
+        {# viewFullPageButton #}
 
-        <h2 class="govuk-heading-s">Design notes</h2>
+        {# pageHistory #}
 
-        {% if hasHistory %}
-            {% from "details/macro.njk" import govukDetails %}
-            <details class="govuk-details">
-                <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                            Iterations: {{ hasHistory.length }}
-                        </span>
-                </summary>
-                <div class="govuk-details__text">
-                    {% for version in thePageInfo.hasHistory %}
-                        <p><a href="{{ version.location }}" target="_blank">Version {{ version.version }} from
-                                Sprint {{ version.sprint }}</a></p>
-                    {% endfor %}
-                </div>
-            </details>
-
-        {% endif %}
-
-        {% if thePageInfo.theStageUR.feedback %}
-
-            {% for feedbackType, feedback in thePageInfo.theStageUR.feedback %}
-                {% if feedbackType === 'video' and feedback !== '' %}
-                    <a href="{{ feedback }}" target="_blank">View user feedback video</a>
-                {% endif %}
-            {% endfor %}
-
-        {% endif %}
+        {# videoFeedback #}
 
     </div>
 
