@@ -3,8 +3,12 @@
         {# breadcrumbs #}
 
         {# pageDescription #}
+        {% from "pageDescription.njk" import pageDescription %}
+        {{ pageDescription(thePageInfo) }}
 
         {# iframe #}
+        {% from "iframe.njk" import iframe %}
+        {{ iframe(thePageInfo) }}
 
         {# User needs #}
 
