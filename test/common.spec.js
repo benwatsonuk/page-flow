@@ -126,7 +126,7 @@ describe('Common', () => {
                                                 "userNeeds": []
                                             }
                                         ],
-                                        "sprintDirectory": "v0",
+                                        "versionDirectory": "v0",
                                         "users": [
                                             "individual"
                                         ],
@@ -157,7 +157,7 @@ describe('Common', () => {
                                                 "userNeeds": []
                                             }
                                         ],
-                                        "sprintDirectory": "v0",
+                                        "versionDirectory": "v0",
                                         "users": [
                                             "individual"
                                         ],
@@ -218,7 +218,7 @@ describe('Common', () => {
                                         "userNeeds": []
                                     }
                                 ],
-                                "sprintDirectory": "v0",
+                                "versionDirectory": "v0",
                                 "users": [
                                     "individual"
                                 ],

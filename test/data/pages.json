@@ -8,7 +8,7 @@
       "versions": [
         {
           "version": 0,
-          "sprintDirectory": "v0",
+          "versionDirectory": "v0",
           "location": "example1",
           "users": [
             "individual"
@@ -54,7 +54,7 @@
       "versions": [
         {
           "version": 0,
-          "sprintDirectory": "v0",
+          "versionDirectory": "v0",
           "location": "example2",
           "users": [
             "individual"

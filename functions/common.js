@@ -126,7 +126,7 @@ common.getPageHistory = function (thisPage, thisStage) {
                 versions.push({
                     'version': thisStage.versions[theVersion]['version'],
                     'sprint': thisStage.versions[theVersion]['sprint'],
-                    'location': '/' + thisStage.versions[theVersion]['sprintDirectory'] + '/' + thisStage.versions[theVersion]['location'] + '/' + thisStage.versions[theVersion]['pages'][thePage]['location']
+                    'location': '/' + thisStage.versions[theVersion]['versionDirectory'] + '/' + thisStage.versions[theVersion]['location'] + '/' + thisStage.versions[theVersion]['pages'][thePage]['location']
                 })
             }
         }
