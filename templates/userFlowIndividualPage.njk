@@ -17,10 +17,10 @@
     </div>
     <div class="govuk-grid-column-one-third">
         {% from "components/pageNav.njk" import pageNav %}
-
         {{ pageNav(thePageInfo.navigation) }}
 
-        {# viewFullPageButton #}
+        {% from "components/viewFullPageButton.njk" import viewFullPageButton %}
+        {{ viewFullPageButton(thePageInfo.location) }}
 
         {# pageHistory #}
 
