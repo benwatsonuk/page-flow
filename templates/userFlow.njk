@@ -59,7 +59,7 @@
                             <span class="page-flow-stage-descriptor">{{ stage['stage']['name'] }}</span>
                             <ol class="user-flow--pages">
                                 {% for page in stage.pages %}
-                                    <li class="page-flow-item--page {% if page.pageInfo.hasChange === true %}page-flow-item--page--changed{% endif %}">
+                                    <li class="page-flow-item--page {% if page.hasChange === true %}page-flow-item--page--changed{% endif %}">
                                         {% if page.pageInfo.subDir.length %}
                                             <a href="{{ userJourney.userType.id + '/' + stage['stage'].location + '/' + page.pageInfo.subDir + '/' + page.pageInfo.location }}"
                                                target="_blank"
