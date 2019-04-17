@@ -153,6 +153,9 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
         let stageInJourney = {}
         let pagesInStage = []
         let previousStage
+        if (thePreviousUserFlow !== false) {
+            thePreviousUserFlow = thePreviousUserFlow['journeys'][theJourney]['flow']
+        }
         for (let thePage in theUserFlow['journeys'][theJourney]['flow']) {
             let theStage = theUserFlow['journeys'][theJourney]['flow'][thePage]['stage']
             let thePageWeNeed = theUserFlow['journeys'][theJourney]['flow'][thePage]
@@ -174,7 +177,7 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
                 pagesInStage = []
                 let page = {
                     'id': thePageWeNeed['pageId'],
-                    'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow, thePreviousUserFlow, theStage, thePageWeNeed['pageId']),
+                    'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow['journeys'][theJourney]['flow'], thePreviousUserFlow, theStage, thePageWeNeed),
                     'pageInfo': common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
                 }
                 pagesInStage.push(page)

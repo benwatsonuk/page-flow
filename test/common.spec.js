@@ -50,10 +50,13 @@ describe('Common', () => {
             });
         })
         describe('pageFlowFromUserFlow', () => {
-            it('should return the flow info', () => {
+            it('should return the flow info if no previous flow supplied', () => {
                 const result = common.pageFlowFromUserFlow(userFlow.userflowv1, pages)
-                expect(result).to.not.be.empty
                 expect(result).to.eql(outputs.pageFlowFromUserFlowTest)
+            });
+            it('should return the flow info if previous flow supplied', () => {
+                const result = common.pageFlowFromUserFlow(userFlow.userflowv2, pages, userFlow.userflowv1)
+                expect(result[0]['flow'][1]['pages'][0]['hasChange']).to.be.true
             });
         })
         describe('hasPageChangedSinceLastVersion', () => {
