@@ -4,9 +4,9 @@
     <div class="govuk-grid-column-full">
 
         {% if version !== false %}
-        <h1 class="govuk-heading-l">
-            Version {{ version }}
-        </h1>
+            <h1 class="govuk-heading-l">
+                Version {{ version }}
+            </h1>
         {% endif %}
 
         <h3 class="govuk-heading-m">Scenarios</h3>
@@ -56,7 +56,7 @@
                 <ol class="user-flow--stages">
                     {% for stage in userJourney.flow %}
                         <li class="user-flow-item--stage page-flow-item--stage--{{ stage['stage']['id'] }}">
-                            <span class="page-flow-stage-descriptor govuk-header">{{ stage['stage']['name'] }}</span>
+                            <span class="page-flow-stage-descriptor">{{ stage['stage']['name'] }}</span>
                             <ol class="user-flow--pages">
                                 {% for page in stage.pages %}
                                     <li class="page-flow-item--page">
@@ -69,7 +69,7 @@
                                                target="_blank"
                                                class="page-flow-item-screen-icon page-flow-item-screen-icon--{{ page.pageInfo.type }}"></a>
                                         {% endif %}
-                                        <p class="govuk-!-font-size-14">{{ page.pageInfo.title }}
+                                        <p class="">{{ page.pageInfo.title }}
                                         </p>
                                     </li>
                                 {% endfor %}

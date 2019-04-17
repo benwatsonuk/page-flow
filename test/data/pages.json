@@ -71,6 +71,26 @@
               "location": "example1"
             }
           ]
+        },
+        {
+          "version": 1,
+          "versionDirectory": "v1",
+          "location": "example2",
+          "users": [
+            "individual"
+          ],
+          "design-notes": "Example 2 with a slight tweak",
+          "pages": [
+            {
+              "title": "Page 1",
+              "id": "1",
+              "userNeeds": [
+              ],
+              "description": "Page 1 with a slight tweak to content",
+              "type": "text-input",
+              "location": "example1"
+            }
+          ]
         }
       ]
     }
