@@ -1,8 +1,8 @@
 const expect = require('chai').expect
 
 const common = require('../functions/common')
-const pageFlow = require('./data/pages')
-const userFlow = require('./data/user-flow')
+const pages = require('./data/pages')
+const userFlow = require('./data/user-flows')
 const outputs = require('./data/outputs')
 
 describe('Common', () => {
@@ -43,10 +43,31 @@ describe('Common', () => {
     describe('User Flow proper', () => {
         describe('getPageInfoForUserFlow', () => {
             it('should return page info', () => {
-                const result = common.getPageInfoForUserFlow(pageFlow, userFlow, 'example2', 'example1', 0, 'example1')
+                const result = common.getPageInfoForUserFlow(pages, userFlow.userflowv1, 'example2', 'example1', 0, 'example1')
                 const output = outputs.getPageInfoForUserFlow
                 expect(result).to.not.be.empty
                 expect(result).to.eql(output)
+            });
+        })
+        describe('pageFlowFromUserFlow', () => {
+            it('should return the flow info', () => {
+                const result = common.pageFlowFromUserFlow(userFlow.userflowv1, pages)
+                expect(result).to.not.be.empty
+                expect(result).to.eql(outputs.pageFlowFromUserFlowTest)
+            });
+        })
+        describe('hasPageChangedSinceLastVersion', () => {
+            it('should return true if change is detected', () => {
+                const result = common.hasPageChangedSinceLastVersion(outputs.hasPageChangedSinceLastVersionTest.theCurrentFlow, outputs.hasPageChangedSinceLastVersionTest.thePreviousFlow, 'example2', outputs.hasPageChangedSinceLastVersionTest.thePageWeNeed)
+                expect(result).to.be.true
+            });
+            it('should return false if no change is detected', () => {
+                const result = common.hasPageChangedSinceLastVersion(outputs.hasPageChangedSinceLastVersionTest.theCurrentFlow, outputs.hasPageChangedSinceLastVersionTest.theCurrentFlow, 'example2', outputs.hasPageChangedSinceLastVersionTest.thePageWeNeed)
+                expect(result).to.be.false
+            });
+            it('should return false if no previous user flow is supplied', () => {
+                const result = common.hasPageChangedSinceLastVersion(outputs.hasPageChangedSinceLastVersionTest.theCurrentFlow, false, 'example2', outputs.hasPageChangedSinceLastVersionTest.thePageWeNeed)
+                expect(result).to.be.false
             });
         })
     })

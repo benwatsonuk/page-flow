@@ -134,8 +134,18 @@ common.getPageHistory = function (thisPage, thisStage) {
     return versions
 }
 
+common.hasPageChangedSinceLastVersion = function (theCurrentFlow, thePreviousFlow, theStageId, thePageInfo) {
+    if (thePreviousFlow === false) {
+        return false
+    }
+    const pageObj1 = theCurrentFlow[common.findIndexUsing2Keys(theStageId, 'stage', thePageInfo.pageId, 'pageId', theCurrentFlow)]
+    const pageObj2 = thePreviousFlow[common.findIndexUsing2Keys(theStageId, 'stage', thePageInfo.pageId, 'pageId', thePreviousFlow)]
+    return (pageObj1['version'] === pageObj2['version']) ? false : true
+}
 
-common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow) {
+
+
+common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUserFlow = false) {
     let userJourneys = [] // main array
     for (let theJourney in theUserFlow['journeys']) {
         // let theUserNeeds = common.getUserNeeds(theUserFlow['journeys'][theJourney]['userType'])
@@ -164,6 +174,7 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow) {
                 pagesInStage = []
                 let page = {
                     'id': thePageWeNeed['pageId'],
+                    'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow, thePreviousUserFlow, theStage, thePageWeNeed['pageId']),
                     'pageInfo': common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
                 }
                 pagesInStage.push(page)
