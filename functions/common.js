@@ -170,6 +170,7 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
             if (theStage === previousStage) {
                 let page = {
                     'id': thePageWeNeed['pageId'],
+                    'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow['journeys'][theJourney]['flow'], thePreviousUserFlowToUse, theStage, thePageWeNeed),
                     'pageInfo': common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
                 }
                 pagesInStage.push(page)

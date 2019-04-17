@@ -359,6 +359,7 @@ module.exports.pageFlowFromUserFlowTest = [
           },
           {
             "id": "2",
+            "hasChange": false,
             "pageInfo": {
               "description": "Page 2",
               "id": "2",
