@@ -140,6 +140,9 @@ common.hasPageChangedSinceLastVersion = function (theCurrentFlow, thePreviousFlo
     }
     const pageObj1 = theCurrentFlow[common.findIndexUsing2Keys(theStageId, 'stage', thePageInfo.pageId, 'pageId', theCurrentFlow)]
     const pageObj2 = thePreviousFlow[common.findIndexUsing2Keys(theStageId, 'stage', thePageInfo.pageId, 'pageId', thePreviousFlow)]
+    if (pageObj1 && pageObj2 === undefined) {
+        return true
+    }
     return (pageObj1['version'] === pageObj2['version']) ? false : true
 }
 
@@ -152,9 +155,11 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
         let stagesInJourney = []
         let stageInJourney = {}
         let pagesInStage = []
-        let previousStage
+        let previousStage = undefined
         if (thePreviousUserFlow !== false) {
-            thePreviousUserFlow = thePreviousUserFlow['journeys'][theJourney]['flow']
+            thePreviousUserFlowToUse = thePreviousUserFlow['journeys'][theJourney]['flow']
+        } else {
+            thePreviousUserFlowToUse = false
         }
         for (let thePage in theUserFlow['journeys'][theJourney]['flow']) {
             let theStage = theUserFlow['journeys'][theJourney]['flow'][thePage]['stage']
@@ -177,7 +182,7 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
                 pagesInStage = []
                 let page = {
                     'id': thePageWeNeed['pageId'],
-                    'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow['journeys'][theJourney]['flow'], thePreviousUserFlow, theStage, thePageWeNeed),
+                    'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow['journeys'][theJourney]['flow'], thePreviousUserFlowToUse, theStage, thePageWeNeed),
                     'pageInfo': common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
                 }
                 pagesInStage.push(page)
