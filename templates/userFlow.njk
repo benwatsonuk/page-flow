@@ -51,7 +51,7 @@
                     </div>
                 </details>
 
-                <a href="./{{ userJourney.flow[0]['stage'].location + '/' + userJourney.flow[0]['pages'][0].pageInfo.location }}" class="govuk-button">View journey</a>
+                <a href="../{{ userJourney.flow[0]['stage'].location + '/' + userJourney.flow[0]['pages'][0].pageInfo.location }}" class="govuk-button">View journey</a>
 
                 <ol class="user-flow--stages">
                     {% for stage in userJourney.flow %}
