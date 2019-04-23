@@ -123,6 +123,9 @@ module.exports.getPageInfoForUserFlow = {
             "location": "example2",
             "pages": [
               {
+                "changeLog": [
+                  "CX-570"
+                ],
                 "description": "Page 1 with a slight tweak to content",
                 "id": "1",
                 "location": "example1",
@@ -322,6 +325,9 @@ module.exports.pageFlowFromUserFlowTest = [
               "location": "example2",
               "pages": [
                 {
+                  "changeLog": [
+                    "CX-570"
+                  ],
                   "description": "Page 1 with a slight tweak to content",
                   "id": "1",
                   "location": "example1",

@@ -184,3 +184,57 @@ $stage-color--8: orange;
     }
   }
 }
+
+/*
+
+//@todo - Integrate these... Taken from SoG small styles
+
+.user-flow-item--stage {
+  .page-flow-stage-descriptor {
+    font-size: 0.7em;
+    padding: 5px 0
+  }
+}
+.user-flow--stages {
+  .user-flow--pages {
+    .page-flow-item--page {
+      width: 120px;
+      &:before {
+        z-index: 2;
+      }
+      p {
+        font-size: 0.8em;
+      }
+      &:before {
+        left: 53px;
+        width:60px;
+        top: 20px;
+      }
+      .page-flow-item-screen-icon {
+        height: 50px;
+        width: 60px;
+      }
+      &--changed {
+        a {
+          position: relative;
+          //z-index: -1;
+          &:after {
+            position: absolute;
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 1em solid red;
+            border-left: 1em solid transparent;
+            top: -0.5em;
+            right: -0.5em;
+          }
+        }
+        .page-flow-item-screen-icon {
+
+        }
+      }
+    }
+  }
+}
+*/

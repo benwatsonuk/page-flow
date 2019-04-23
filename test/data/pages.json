@@ -84,6 +84,9 @@
             {
               "title": "Page 1",
               "id": "1",
+              "changeLog": [
+                "CX-570"
+              ],
               "userNeeds": [
               ],
               "description": "Page 1 with a slight tweak to content",
