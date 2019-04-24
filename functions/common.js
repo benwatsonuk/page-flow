@@ -125,6 +125,7 @@ common.getPageHistory = function (thisPage, thisStage) {
             if (thisStage.versions[theVersion]['pages'][thePage]['location'] === thisPage.location) {
                 versions.push({
                     'version': thisStage.versions[theVersion]['version'],
+                    'description': thisStage.versions[theVersion]['pages'][thePage]['description'],
                     'sprint': thisStage.versions[theVersion]['sprint'],
                     'location': '/' + thisStage.versions[theVersion]['versionDirectory'] + '/' + thisStage.versions[theVersion]['location'] + '/' + thisStage.versions[theVersion]['pages'][thePage]['location']
                 })
