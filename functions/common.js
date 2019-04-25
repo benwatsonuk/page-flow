@@ -135,6 +135,18 @@ common.getPageHistory = function (thisPage, thisStage) {
     return versions
 }
 
+common.getPageDesignAlternatives = function (thePage) {
+    let altDesigns = []
+    for (let altDesign in thePage.altDesigns) {
+        let theAltDesign = {
+            'location': thePage.location + '?' + thePage.altDesigns[altDesign].queryString,
+            'description': thePage.altDesigns[altDesign].description
+        }
+        altDesigns.push(theAltDesign)
+    }
+    return altDesigns
+}
+
 common.hasPageChangedSinceLastVersion = function (theCurrentFlow, thePreviousFlow, theStageId, thePageInfo) {
     if (thePreviousFlow === false) {
         return false
@@ -169,11 +181,12 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
             let theStageVersion = common.findIndex(theUserFlow['journeys'][theJourney]['flow'][thePage]['version'], 'version', thePageFlow['stages'][theStageIndex]['versions'])
             let theStagePages = common.getStageInfo(theStage, thePageFlow)['versions'][theStageVersion]['pages']
             if (theStage === previousStage) {
+                const pageInfo = common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
                 let page = {
                     'id': thePageWeNeed['pageId'],
                     'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow['journeys'][theJourney]['flow'], thePreviousUserFlowToUse, theStage, thePageWeNeed),
-                    'pageInfo': common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
-                }
+                    'pageInfo': pageInfo,
+                    'altDesigns': common.getPageDesignAlternatives(pageInfo)                }
                 pagesInStage.push(page)
 
                 stageInJourney = {'stage': common.getStageInfo(theStage, thePageFlow), 'pages': pagesInStage}
@@ -182,10 +195,12 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
                     stagesInJourney.push(stageInJourney)
                 }
                 pagesInStage = []
+                const pageInfo = common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
                 let page = {
                     'id': thePageWeNeed['pageId'],
                     'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow['journeys'][theJourney]['flow'], thePreviousUserFlowToUse, theStage, thePageWeNeed),
-                    'pageInfo': common.getPageInfo(thePageWeNeed['pageId'], theStagePages)
+                    'pageInfo': pageInfo,
+                    'altDesigns': common.getPageDesignAlternatives(pageInfo)
                 }
                 pagesInStage.push(page)
                 stageInJourney = {'stage': common.getStageInfo(theStage, thePageFlow), 'pages': pagesInStage}
