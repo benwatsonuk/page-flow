@@ -36,6 +36,12 @@
             {
               "title": "Page 3",
               "id": "3",
+              "altDesigns": [
+                {
+                  "queryString": "showAltAddress=true",
+                  "description": "Address formatted as one line to reduce visual significance afforded to it"
+                }
+              ],
               "userNeeds": [
               ],
               "description": "Page 3",
@@ -84,6 +90,15 @@
             {
               "title": "Page 1",
               "id": "1",
+              "altDesigns": [
+                {
+                  "queryString": "showAltAddress=true",
+                  "description": "Address formatted as one line to reduce visual significance afforded to it"
+                }
+              ],
+              "changeLog": [
+                "CX-570"
+              ],
               "userNeeds": [
               ],
               "description": "Page 1 with a slight tweak to content",

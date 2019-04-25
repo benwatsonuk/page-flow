@@ -22,7 +22,11 @@
         {% from "components/viewFullPageButton.njk" import viewFullPageButton %}
         {{ viewFullPageButton(thePageInfo.location) }}
 
-        {# pageHistory #}
+        {% from "components/pageHistory.njk" import pageHistory %}
+        {{ pageHistory(thePageInfo) }}
+
+        {% from "components/pageDesignAlternatives.njk" import pageDesignAlternatives %}
+        {{ pageDesignAlternatives(thePageInfo) }}
 
         {# videoFeedback #}
 

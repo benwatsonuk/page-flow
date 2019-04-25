@@ -1,17 +1,23 @@
-{% if hasHistory %}
-    {% from "details/macro.njk" import govukDetails %}
-    <details class="govuk-details">
-        <summary class="govuk-details__summary">
+{% macro pageHistory(thePageInfo) %}
+    <hr>
+    {% if thePageInfo.hasHistory %}
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
                             Iterations: {{ hasHistory.length }}
                         </span>
-        </summary>
-        <div class="govuk-details__text">
-            {% for version in thePageInfo.hasHistory %}
-                <p><a href="{{ version.location }}" target="_blank">Version {{ version.version }} from
-                        Sprint {{ version.sprint }}</a></p>
-            {% endfor %}
-        </div>
-    </details>
+            </summary>
+            <div class="govuk-details__text">
+                {% for version in thePageInfo.hasHistory|reverse %}
+                    <p><a href="{{ version.location }}" target="_blank">Version {{ version.version }}</a>
+                        - {{ version.description }}</p>
+                {% endfor %}
+            </div>
+        </details>
 
-{% endif %}
+    {% else %}
+
+        No previous versions
+
+    {% endif %}
+{% endmacro %}

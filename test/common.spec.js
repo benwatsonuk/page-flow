@@ -40,6 +40,22 @@ describe('Common', () => {
             });
         })
     })
+    describe('getPageHistory', () => {
+        it('should return page history', () => {
+            const result = common.getPageHistory(outputs.getPageHistoryTest.pageInfo, outputs.getPageHistoryTest.stageInfo)
+            const output = outputs.getPageHistoryTest.output
+            expect(result).to.not.be.empty
+            expect(result).to.eql(output)
+        });
+    });
+    describe('getPageDesignAlternatives', () => {
+        it('should return array of design alternatives', () => {
+            const result = common.getPageDesignAlternatives(outputs.getPageDesignAlternativesTest.pageInfo)
+            const output = outputs.getPageDesignAlternativesTest.output2
+            expect(result).to.not.be.empty
+            expect(result).to.eql(output)
+        });
+    });
     describe('User Flow proper', () => {
         describe('getPageInfoForUserFlow', () => {
             it('should return page info', () => {
