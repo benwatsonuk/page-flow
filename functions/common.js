@@ -323,7 +323,7 @@ common.handleQueryString = function (query) {
     return theQueryString
 }
 
-common.getPageInfoForUserFlow = function (pageFlow, userFlow, page, stage, version, journeyId, query = false, subStage = false) {
+common.getPageInfoForUserFlow = function (pageFlow, userFlow, page, stage, version, journeyId, subStage = false, query = false) {
     const theQueryString = common.handleQueryString(query);
     const flowType = 'user-flow'
     let thePageName = page + theQueryString;
