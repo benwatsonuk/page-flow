@@ -6,7 +6,7 @@ const common = {}
 /**
  * Utilities
  */
-function compareStrings(a, b) {
+function compareStrings (a, b) {
     // Assuming you want case-insensitive comparison
     a = a.friendlyName.toLowerCase()
     b = b.friendlyName.toLowerCase()
@@ -159,8 +159,6 @@ common.hasPageChangedSinceLastVersion = function (theCurrentFlow, thePreviousFlo
     return (pageObj1['version'] === pageObj2['version']) ? false : true
 }
 
-
-
 common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUserFlow = false) {
     let userJourneys = [] // main array
     for (let theJourney in theUserFlow['journeys']) {
@@ -170,7 +168,11 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
         let pagesInStage = []
         let previousStage = undefined
         if (thePreviousUserFlow !== false) {
-            thePreviousUserFlowToUse = thePreviousUserFlow['journeys'][theJourney]['flow']
+            if (typeof thePreviousUserFlow['journeys'][theJourney] === 'undefined') {
+                thePreviousUserFlowToUse = false
+            } else {
+                thePreviousUserFlowToUse = thePreviousUserFlow['journeys'][theJourney]['flow']
+            }
         } else {
             thePreviousUserFlowToUse = false
         }
@@ -186,10 +188,11 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
                     'id': thePageWeNeed['pageId'],
                     'hasChange': common.hasPageChangedSinceLastVersion(theUserFlow['journeys'][theJourney]['flow'], thePreviousUserFlowToUse, theStage, thePageWeNeed),
                     'pageInfo': pageInfo,
-                    'altDesigns': common.getPageDesignAlternatives(pageInfo)                }
+                    'altDesigns': common.getPageDesignAlternatives(pageInfo)
+                }
                 pagesInStage.push(page)
 
-                stageInJourney = {'stage': common.getStageInfo(theStage, thePageFlow), 'pages': pagesInStage}
+                stageInJourney = { 'stage': common.getStageInfo(theStage, thePageFlow), 'pages': pagesInStage }
             } else {
                 if (previousStage !== undefined) {
                     stagesInJourney.push(stageInJourney)
@@ -203,7 +206,7 @@ common.pageFlowFromUserFlow = function (theUserFlow, thePageFlow, thePreviousUse
                     'altDesigns': common.getPageDesignAlternatives(pageInfo)
                 }
                 pagesInStage.push(page)
-                stageInJourney = {'stage': common.getStageInfo(theStage, thePageFlow), 'pages': pagesInStage}
+                stageInJourney = { 'stage': common.getStageInfo(theStage, thePageFlow), 'pages': pagesInStage }
             }
             previousStage = theStage
         }
@@ -307,16 +310,16 @@ common.getNavigationForUserFlow = function (userFlow, flowType, id, thisPage, th
 }
 
 common.handleQueryString = function (query) {
-    let theQueryString = '';
+    let theQueryString = ''
     if (Object.keys(query).length) {
-        theQueryString = '?';
+        theQueryString = '?'
         let i = 0
         for (let theKey in query) {
             if (i > 0) {
                 theQueryString += '&'
             }
-            theQueryString += theKey;
-            theQueryString += '=' + query[theKey];
+            theQueryString += theKey
+            theQueryString += '=' + query[theKey]
             i++
         }
     }
@@ -324,9 +327,9 @@ common.handleQueryString = function (query) {
 }
 
 common.getPageInfoForUserFlow = function (pageFlow, userFlow, page, stage, version, journeyId, subStage = false, query = false) {
-    const theQueryString = common.handleQueryString(query);
+    const theQueryString = common.handleQueryString(query)
     const flowType = 'user-flow'
-    let thePageName = page + theQueryString;
+    let thePageName = page + theQueryString
     let theStageKey = null
     if (subStage !== false) {
         theStageKey = stage + '/' + subStage
